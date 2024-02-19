@@ -1,0 +1,38 @@
+name: catia-and-jamie-serveronly
+services:
+  backend:
+    build:
+      context: .
+    restart: unless-stopped
+    environment:
+      - DATABASE_USERNAME=[USERNAME]
+      - DATABASE_PASSWORD=[PASSWORD]
+      - DATABASE_HOST=[HOST]
+      - DATABASE_NAME=[NAME]
+      - OPENSSL_ENCRYPTION_KEY=[RANDOM 32 CHARS]
+      - SESSION_SECRET=[RANDOM 32 CHARS]
+    ports:
+      - 5005:5005
+    networks:
+      - backend
+    volumes:
+      - ./assets:/assets
+    depends_on:
+      - database
+  database:
+    image: postgres:16.1-alpine
+    restart: unless-stopped
+    environment:
+      - POSTGRES_USER=[USERNAME]
+      - POSTGRES_PASSWORD=[PASSWORD]
+    ports:
+      - 5432:5433
+    networks:
+      - backend
+    volumes:
+      - database:/var/lib/postgresql/data
+networks:
+  backend: {}
+volumes:
+  database:
+    driver: local
