@@ -18,8 +18,8 @@ pub fn api_router(api_state: ApiState) -> axum::Router {
             .route("/", axum::routing::get(get))
             .nest("/auth", auth::router(api_state.clone()))
             .nest_service(
-                "/assets",
-                ServeDir::new("assets").not_found_service(not_found.into_service()),
+                "/memories",
+                ServeDir::new("memories").not_found_service(not_found.into_service()),
             )
             .with_state(api_state),
     )
