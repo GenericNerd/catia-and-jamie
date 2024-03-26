@@ -1,0 +1,14 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "UPDATE memories SET approved = TRUE WHERE memory_id = $1",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Int8"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "407bcf6fc34531bce48f9813148deaac4325cd3d4707a0e3a272662e7f02a8b7"
+}
