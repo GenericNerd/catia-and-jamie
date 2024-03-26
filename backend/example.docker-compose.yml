@@ -16,7 +16,7 @@ services:
     networks:
       - backend
     volumes:
-      - ./assets:/assets
+      - ./memories:/memories
     depends_on:
       - database
   database:
@@ -26,7 +26,7 @@ services:
       - POSTGRES_USER=[USERNAME]
       - POSTGRES_PASSWORD=[PASSWORD]
     ports:
-      - 5432:5433
+      - 5432:5432
     networks:
       - backend
     volumes:
