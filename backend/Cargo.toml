@@ -30,5 +30,5 @@ tracing-subscriber = { version = "0.3" }
 # Other
 lazy_static = { version = "1.4" }
 regex = { version = "1.10" }
-base64 = { version = "0.21" }
-image = { version = "0.24" }
+base64 = { version = "0.22" }
+image = { version = "0.25" }
