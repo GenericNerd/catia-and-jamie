@@ -35,6 +35,24 @@ impl From<sqlx::Error> for ResponseError {
     }
 }
 
+impl From<std::io::Error> for ResponseError {
+    fn from(err: std::io::Error) -> Self {
+        ResponseError {
+            status: 500,
+            message: Some(err.to_string()),
+        }
+    }
+}
+
+impl From<image::ImageError> for ResponseError {
+    fn from(err: image::ImageError) -> Self {
+        ResponseError {
+            status: 400,
+            message: Some(err.to_string()),
+        }
+    }
+}
+
 #[derive(Debug, thiserror::Error)]
 pub enum ExtractorRejection {
     #[error(transparent)]

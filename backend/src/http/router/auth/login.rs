@@ -35,7 +35,7 @@ pub async fn post(
     };
 
     let user = match sqlx::query!(
-        "SELECT id, password FROM users WHERE username = $1",
+        "SELECT id, password FROM users WHERE username = $1 AND verified = TRUE",
         username
     )
     .fetch_optional(&api_state.database_pool)
