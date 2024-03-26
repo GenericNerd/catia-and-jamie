@@ -13,34 +13,37 @@ use crate::{
 #[derive(serde::Deserialize)]
 pub struct NewMemory {
     table: String,
-    image: String,
+    images: Vec<String>,
 }
 
 pub async fn post(
     State(state): State<ApiState>,
     WithRejection(Json(payload), _): WithRejection<Json<NewMemory>, ExtractorRejection>,
 ) -> ResponseResult<impl IntoResponse> {
-    let image = match URL_SAFE.decode(payload.image.as_bytes()) {
-        Ok(decode) => Reader::new(Cursor::new(decode))
-            .with_guessed_format()?
-            .decode()?,
-        Err(err) => {
-            return Err(ResponseError {
-                status: 400,
-                message: Some(err.to_string()),
-            })
-        }
-    };
+    for image in payload.images {
+        let image = match URL_SAFE.decode(image.as_bytes()) {
+            Ok(decode) => Reader::new(Cursor::new(decode))
+                .with_guessed_format()?
+                .decode()?,
+            Err(err) => {
+                return Err(ResponseError {
+                    status: 400,
+                    message: Some(err.to_string()),
+                })
+            }
+        };
 
-    let snowflake = Snowflake::new();
-    image.save(format!("memories/{}.png", snowflake.snowflake))?;
-    sqlx::query!(
-        "INSERT INTO memories (memory_id, table_name, url) VALUES ($1, $2, $3)",
-        snowflake.snowflake as i64,
-        payload.table,
-        format!("/memories/{}.png", snowflake.snowflake)
-    )
-    .execute(&state.database_pool)
-    .await?;
+        let snowflake = Snowflake::new();
+        image.save(format!("memories/{}.png", snowflake.snowflake))?;
+        sqlx::query!(
+            "INSERT INTO memories (memory_id, table_name, url) VALUES ($1, $2, $3)",
+            snowflake.snowflake as i64,
+            payload.table,
+            format!("/memories/{}.png", snowflake.snowflake)
+        )
+        .execute(&state.database_pool)
+        .await?;
+    }
+
     Ok(())
 }
