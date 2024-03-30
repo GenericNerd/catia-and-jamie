@@ -73,10 +73,9 @@ impl IntoResponse for ExtractorRejection {
                     TypedHeaderRejectionReason::Missing => {
                         (400, format!("Missing {} header", rejection.name()))
                     }
-                    TypedHeaderRejectionReason::Error(err) => (
-                        400,
-                        format!("{} on {} header", err.to_string(), rejection.name()),
-                    ),
+                    TypedHeaderRejectionReason::Error(err) => {
+                        (400, format!("{} on {} header", err, rejection.name()))
+                    }
                     _ => (400, "Invalid header".to_string()),
                 }
             }

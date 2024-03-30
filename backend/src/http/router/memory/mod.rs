@@ -32,24 +32,26 @@ pub async fn get(
             });
         }
 
-        let memories = sqlx::query!("SELECT memory_id, table_name, url, approved FROM memories")
-            .fetch_all(&state.database_pool)
-            .await?
-            .iter()
-            .map(|memory| {
-                serde_json::json!({
-                    "memory_id": memory.memory_id,
-                    "table_name": memory.table_name,
-                    "url": memory.url,
-                    "approved": memory.approved
-                })
+        let memories = sqlx::query!(
+            "SELECT memory_id, table_name, url, approved FROM memories WHERE approved = FALSE"
+        )
+        .fetch_all(&state.database_pool)
+        .await?
+        .iter()
+        .map(|memory| {
+            serde_json::json!({
+                "memory_id": memory.memory_id,
+                "table_name": memory.table_name,
+                "url": memory.url,
+                "approved": memory.approved
             })
-            .collect::<Vec<serde_json::Value>>();
+        })
+        .collect::<Vec<serde_json::Value>>();
 
-        return Ok(Json(serde_json::json!({
+        Ok(Json(serde_json::json!({
             "success": true,
             "memories": memories
-        })));
+        })))
     } else {
         let memories =
             sqlx::query!("SELECT memory_id, table_name, url FROM memories WHERE approved = TRUE")
@@ -65,11 +67,11 @@ pub async fn get(
                 })
                 .collect::<Vec<serde_json::Value>>();
 
-        return Ok(Json(serde_json::json!({
+        Ok(Json(serde_json::json!({
             "success": true,
             "memories": memories
-        })));
-    };
+        })))
+    }
 }
 
 pub fn router(api_state: ApiState) -> axum::Router<ApiState> {

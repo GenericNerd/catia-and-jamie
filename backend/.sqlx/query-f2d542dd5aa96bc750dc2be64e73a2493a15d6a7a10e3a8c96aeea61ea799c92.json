@@ -1,6 +1,6 @@
 {
   "db_name": "PostgreSQL",
-  "query": "SELECT memory_id, table_name, url, approved FROM memories",
+  "query": "SELECT memory_id, table_name, url, approved FROM memories WHERE approved = FALSE",
   "describe": {
     "columns": [
       {
@@ -34,5 +34,5 @@
       false
     ]
   },
-  "hash": "4b20f8c78a0e19b75f3df22f9fecd9b4450b5d902b5762c4383fec046943a8ad"
+  "hash": "f2d542dd5aa96bc750dc2be64e73a2493a15d6a7a10e3a8c96aeea61ea799c92"
 }
