@@ -14,7 +14,7 @@ export const actions = {
 			return fail(400, { success: false, message: 'No password provided' });
 		}
 
-		let url = 'https://catiaandjamie.love/api/auth/login';
+		let url = 'http://backend:5005/api/auth/login';
 		if (dev) {
 			url = 'http://localhost:5005/api/auth/login';
 		}

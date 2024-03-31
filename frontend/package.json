@@ -35,6 +35,7 @@
 	"type": "module",
 	"dependencies": {
 		"@fortawesome/free-solid-svg-icons": "^6.5.1",
+		"@sveltejs/adapter-node": "^5.0.1",
 		"svelte-fa": "^4.0.2"
 	}
 }

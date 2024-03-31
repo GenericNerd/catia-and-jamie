@@ -16,7 +16,7 @@
 	>
 		<img
 			class="rounded-t-md max-w-full h-full object-contain"
-			src="{dev ? 'http://localhost:5005/api' : 'https://catiaandjamie.love/api'}{image}"
+			src="{dev ? 'http://localhost:5005/api' : '/api'}{image}"
 			alt={table ? 'A memory from the wedding taken by ' + table : 'A memory from the wedding'}
 		/>
 		{#if table}

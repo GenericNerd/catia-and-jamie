@@ -14,7 +14,7 @@ export const actions = {
 			return fail(401, { success: false, message: 'No token provided' });
 		}
 
-		let url = 'https://catiaandjamie.love/api/memory/approve';
+		let url = 'http://backend:5005/api/memory/approve';
 		if (dev) {
 			url = 'http://localhost:5005/api/memory/approve';
 		}
@@ -51,7 +51,7 @@ export const actions = {
 			return fail(401, { success: false, message: 'No token provided' });
 		}
 
-		let url = 'https://catiaandjamie.love/api/memory/deny';
+		let url = 'http://backend:5005/api/memory/deny';
 		if (dev) {
 			url = 'http://localhost:5005/api/memory/deny';
 		}
@@ -84,7 +84,7 @@ export const load: PageServerLoad = async ({ cookies }) => {
 		return redirect(302, '/login');
 	}
 
-	let url = 'https://catiaandjamie.love/api/memory';
+	let url = 'http://backend:5005/api/memory';
 	if (dev) {
 		url = 'http://localhost:5005/api/memory';
 	}

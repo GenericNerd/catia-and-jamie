@@ -19,7 +19,7 @@ export const actions = {
 			encodedImages.push(image.replace(/\+/g, '-').replace(/\//g, '_').split('base64,')[1]);
 		});
 
-		let url = 'https://catiaandjamie.love/api/memory/new';
+		let url = 'http://backend:5005/api/memory/new';
 		if (dev) {
 			url = 'http://localhost:5005/api/memory/new';
 		}
@@ -65,7 +65,7 @@ export const load: PageServerLoad = async ({ url, cookies }) => {
 		});
 	}
 
-	let apiURL = 'https://catiaandjamie.love/api/memory';
+	let apiURL = 'http://backend:5005/api/memory';
 	if (dev) {
 		apiURL = 'http://localhost:5005/api/memory';
 	}

@@ -20,7 +20,7 @@
 		class="transition-opacity h-full object-contain"
 		class:opacity-0={$openMemory === null}
 		class:opacity-100={$openMemory !== null}
-		src="{dev ? 'http://localhost:5005/api' : 'https://catiaandjamie.love/api'}{$openMemory}"
+		src="{dev ? 'http://localhost:5005/api' : '/api'}{$openMemory}"
 		alt="A memory of the wedding"
 	/>
 	<button
