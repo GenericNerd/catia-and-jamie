@@ -109,7 +109,7 @@ pub async fn post(
     sqlx::query!(
         "INSERT INTO users (id, username, password) VALUES ($1, $2, $3)",
         user_id.snowflake as i64,
-        hex::encode(username),
+        username,
         hashed_password.to_string()
     )
     .execute(&api_state.database_pool)

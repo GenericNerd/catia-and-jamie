@@ -24,14 +24,6 @@ export const actions = {
 			url = 'http://localhost:5005/api/memory/new';
 		}
 
-		console.log(
-			'body',
-			JSON.stringify({
-				table,
-				images: encodedImages
-			})
-		);
-
 		try {
 			const response = await fetch(url, {
 				method: 'POST',
@@ -64,6 +56,13 @@ export const load: PageServerLoad = async ({ url, cookies }) => {
 			maxAge: 60 * 60 * 24 * 30
 		});
 		redirect(302, url.pathname);
+	}
+
+	if (!table && cookies.get('table') === undefined) {
+		cookies.set('table', 'Unknown', {
+			path: '/',
+			maxAge: 60 * 60 * 24 * 30
+		});
 	}
 
 	let apiURL = 'https://catiaandjamie.love/api/memory';

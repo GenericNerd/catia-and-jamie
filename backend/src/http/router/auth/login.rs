@@ -69,7 +69,7 @@ pub async fn post(
     {
         return Err(ResponseError {
             status: 401,
-            message: Some("Invalid credentials".to_string()),
+            message: Some("Invalid username or password".to_string()),
         });
     };
 
@@ -90,6 +90,14 @@ pub async fn post(
             });
         }
     };
+
+    sqlx::query!(
+        "INSERT INTO user_sessions (user_id, token) VALUES ($1, $2)",
+        user.id,
+        token
+    )
+    .execute(&api_state.database_pool)
+    .await?;
 
     Ok(axum::Json(serde_json::json!({
         "success": true,
