@@ -1,4 +1,4 @@
-name: devscribe
+name: catia-and-jamie
 services:
   frontend:
     build:
