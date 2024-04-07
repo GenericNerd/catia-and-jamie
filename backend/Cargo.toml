@@ -12,7 +12,8 @@ tokio = { version = "1.35", features = ["full"] }
 sqlx = { version = "0.7", features = ["runtime-tokio-rustls", "postgres"] }
 time = { version = "0.3" }
 # Web framework and dependencies
-axum = { version = "0.7", features = ["macros"] }
+multer = "3.0"
+axum = { version = "0.7.5", features = ["macros", "multipart"] }
 axum-extra = { version = "0.9", features = ["typed-header"] }
 tower = { version = "0.4" }
 tower-http = { version = "0.5", features = ["trace", "cors", "fs"] }

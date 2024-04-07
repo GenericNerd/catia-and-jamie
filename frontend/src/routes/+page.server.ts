@@ -9,15 +9,7 @@ export const actions = {
 		if (table === undefined) {
 			return fail(400, { message: 'No table selected' });
 		}
-		const rawImageInput = data.get('memories');
-		if (rawImageInput === null) {
-			return fail(400, { message: 'No images provided' });
-		}
-		const images = rawImageInput.toString().split('_');
-		const encodedImages: string[] = [];
-		images.forEach((image) => {
-			encodedImages.push(image.replace(/\+/g, '-').replace(/\//g, '_').split('base64,')[1]);
-		});
+		data.append('table', table);
 
 		let url = 'http://backend:5005/api/memory/new';
 		if (dev) {
@@ -27,22 +19,18 @@ export const actions = {
 		try {
 			const response = await fetch(url, {
 				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json'
-				},
-				body: JSON.stringify({
-					table,
-					images: encodedImages
-				})
+				body: data
 			});
 
 			if (response.ok) {
 				return { success: true };
 			} else {
+				console.log(await response.text());
 				const data = await response.json();
 				return fail(500, { message: data.message });
 			}
 		} catch (e) {
+			console.error(e);
 			return fail(500, { message: 'An error occurred' });
 		}
 	}
